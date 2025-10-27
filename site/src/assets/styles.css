@@ -1,0 +1,538 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* Neutrals */
+    --bg: #292c35;
+    --surface: #3d3847;
+    --text: #e7ebec;
+    --border: #68687d;
+
+    /* Brand */
+    --primary-600: #0f814e;
+    --primary-400: #18d97f;
+    --on-primary-600: #ffffff;
+    --accent-600: #d91c73;
+
+    /* Accent */
+    --accent-600-rgb: 217 28 115; /* #d91c73 */
+    --accent-400-rgb: 232 48 141; /* #e8308d */
+    --primary-600-rgb: 15 129 78; /* #0f814e */
+    --primary-400-rgb: 24 217 127; /* #18d97f */
+
+    /* Focus ring */
+    --ring: #7de7b7;
+
+    /* Header height: scales with viewport, not with content */
+    --header-h: clamp(52px, 6vw, 68px);
+
+    /* Background image (replace path to your photo) */
+    --bg-image: url('images/skyline.jpg');
+
+    --bg-strength: .18; /* default for Home */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    height: 100%;
+}
+
+html {
+    scrollbar-gutter: stable both-edges;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* Subtle sitewide background photo under everything */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: saturate(80%) contrast(95%);
+    opacity: var(--bg-strength); /* low so content remains legible */
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    padding: .55rem .9rem;
+    border-radius: .7rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.btn:hover {
+    background: #ffffff12;
+}
+
+.btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ring);
+}
+
+.btn-primary {
+    background: var(--primary-600);
+    color: var(--on-primary-600);
+    border-color: transparent;
+}
+
+.btn-primary:hover {
+    background: #0d7246;
+}
+
+.btn-outline {
+    background: transparent;
+    border-color: #ffffff33;
+}
+
+.btn-sm {
+    padding: .35rem .6rem;
+    font-size: .9rem;
+}
+
+/* Layout */
+.shell {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+/* When not on Home, gently increase the background visibility */
+.shell.is-inner {
+    --bg-strength: .26;
+}
+
+/* tweak .26–.32 to taste */
+
+/* Intro ribbon at top — hides on scroll */
+.intro {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    text-align: center;
+    color: #fff;
+    padding: .55rem .75rem;
+    background: linear-gradient(90deg, var(--primary-600), var(--accent-600));
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform .35s ease, opacity .35s ease;
+}
+
+.intro.hide {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+/* Glassy header */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-h);
+    padding: 0 1.1rem;
+    background: rgba(24, 25, 28, .42);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #ffffff24;
+}
+
+.header--elevated {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+    background: rgba(24, 25, 28, .55);
+}
+
+.brand {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: .2px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.navlink {
+    display: inline-flex;
+    align-items: center;
+    height: calc(var(--header-h) - 22px);
+    padding: 0 .75rem;
+    line-height: 1;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: .6rem;
+    border: 1px solid transparent;
+}
+
+.navlink:hover {
+    border-color: var(--border);
+    background: #ffffff12;
+}
+
+.navlink.active {
+    background: var(--primary-600);
+    color: var(--on-primary-600);
+}
+
+.content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.25rem;
+    width: 100%;
+}
+
+.footer {
+    border-top: 1px solid var(--border);
+    background: rgba(61, 56, 71, .85);
+    backdrop-filter: blur(6px);
+    padding: 1.25rem;
+    color: #cfd3d6;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: .75rem;
+}
+
+.list-plain {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-plain li {
+    margin: .25rem 0;
+}
+
+.muted {
+    color: #b2b7bc;
+}
+
+/* Hero */
+.hero {
+    position: relative;
+    padding: 4rem 1.25rem 3rem;
+    text-align: left;
+    overflow: hidden;
+}
+
+.hero.hero-cover {
+    padding: 7rem 1.25rem 5rem;
+    border-bottom: 1px solid #ffffff1e;
+}
+
+.hero.hero-cover {
+    background-image: linear-gradient(to bottom, rgba(18, 19, 22, .55), rgba(18, 19, 22, .85)), var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.eyebrow {
+    color: var(--primary-400);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: .8rem;
+}
+
+.hero-title {
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    line-height: 1.05;
+    margin: .4rem 0 .5rem;
+    text-shadow: 0 2px 30px #00000066;
+}
+
+.hero-blurb {
+    color: #e2e7e9;
+    max-width: 60ch;
+    text-shadow: 0 1px 12px #00000066;
+}
+
+.hero-actions {
+    margin-top: 1.1rem;
+    display: flex;
+    gap: .6rem;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: -20% -10% auto -10%;
+    height: 20rem;
+    background: radial-gradient(60% 60% at 20% 40%, #18d97f22, transparent 70%), radial-gradient(50% 50% at 70% 20%, #e8308d22, transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+/* Sections + Cards */
+.section {
+    margin: 2rem 0 3rem;
+}
+
+.section-head {
+    margin-bottom: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    background: #ffffff0f;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1rem;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.actions {
+    display: flex;
+    gap: .5rem;
+    margin-top: .8rem;
+}
+
+/* Make footer + card links use the same appearance as content links */
+.content a:not(.btn):not(.navlink),
+.footer a:not(.btn):not(.navlink),
+.card a:not(.btn):not(.navlink) {
+    color: var(--primary-400);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: color-mix(in oklab, currentColor 60%, transparent);
+    transition: color .15s ease, text-decoration-color .15s ease;
+}
+
+.content a:not(.btn):not(.navlink):hover,
+.footer a:not(.btn):not(.navlink):hover,
+.card a:not(.btn):not(.navlink):hover {
+    color: var(--primary-600);
+    text-decoration-color: currentColor;
+}
+
+.content a:not(.btn):not(.navlink):focus-visible,
+.footer a:not(.btn):not(.navlink):focus-visible,
+.card a:not(.btn):not(.navlink):focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ring);
+    border-radius: .25rem;
+}
+
+.content a:not(.btn):not(.navlink):visited,
+.footer a:not(.btn):not(.navlink):visited,
+.card a:not(.btn):not(.navlink):visited {
+    color: color-mix(in oklab, var(--primary-400) 85%, plum 15%);
+}
+
+/* Tighter row for inline links inside cards */
+.actions.actions--links {
+    gap: .35rem;
+    flex-wrap: wrap;
+}
+
+.actions.actions--links a {
+    padding: 0;
+    border: 0;
+}
+
+
+/* Forms */
+.form {
+    display: grid;
+    gap: .8rem;
+    max-width: 700px;
+}
+
+.form label {
+    display: grid;
+    gap: .35rem;
+    font-weight: 500;
+}
+
+input, textarea {
+    background: #0f0f13;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: .6rem;
+    padding: .6rem .7rem;
+}
+
+input:focus, textarea:focus, .navlink:focus, .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* Prose */
+.prose p {
+    line-height: 1.6;
+}
+
+.prose ul {
+    padding-left: 1.1rem;
+}
+
+.route-container {
+    position: relative;
+}
+
+.route-anim {
+    will-change: opacity, transform;
+}
+
+/* Mini-hero for inner pages (reuses your bg image + overlay) */
+.page-header {
+    position: relative;
+    padding: 3rem 1.25rem 2.25rem;
+    border-bottom: 1px solid #ffffff1e;
+    background-image: linear-gradient(to bottom, rgba(18, 19, 22, .55), rgba(18, 19, 22, .85)),
+    var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.page-header--sm { /* compact band */
+    min-height: 28vh;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+}
+
+.page-header--md { /* a bit taller if you want */
+    min-height: 36vh;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+}
+
+.page-header--center .hero-actions {
+    justify-content: center;
+}
+
+.page-title {
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    line-height: 1.1;
+    margin: .25rem 0 .35rem;
+    text-shadow: 0 2px 30px #00000066;
+}
+
+.page-blurb {
+    color: #e2e7e9;
+    max-width: 65ch;
+    text-align: center;
+}
+
+/* Centered hero variant (to match mini-headers) */
+.hero.hero-center {
+    text-align: center;
+}
+
+.hero.hero-center .hero-actions {
+    justify-content: center;
+}
+
+/* Keep blurb nicely centered within its max-width */
+.hero.hero-center .hero-blurb {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero.hero-center .eyebrow {
+    display: inline-block;
+}
+
+/* Center the contact section header text */
+.section-head--center {
+    text-align: center;
+}
+
+/* Center the form block inside the content column */
+.form.form--center {
+    margin-inline: auto;
+    width: 100%;
+}
+
+/* ===== Fade-in utility ===== */
+@keyframes fadeUp {
+    to { opacity: 1; transform: none; }
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeUp .28s ease-out forwards;
+}
+.fade-in-2 { animation-delay: .06s; }
+.fade-in-3 { animation-delay: .12s; }
+.fade-in-4 { animation-delay: .18s; }
+
+/* iOS/mobile fix so the image doesn't vanish */
+@media (max-width: 768px) {
+    .page-header {
+        background-attachment: scroll;
+    }
+}
+
+@media (max-width: 800px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero.hero-cover {
+        background-attachment: scroll;
+    }
+}
+
+/* Make primary action full-width on narrow screens for easier tapping */
+@media (max-width: 520px) {
+    .form .btn-primary {
+        width: 100%;
+    }
+}
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .fade-in, .fade-in-2, .fade-in-3, .fade-in-4 { animation: none !important; opacity: 1; transform: none; }
+}
+
+
