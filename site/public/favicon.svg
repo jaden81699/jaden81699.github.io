@@ -1,0 +1,22 @@
+<!-- Jaden Walker • JW monogram favicon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-label="JW monogram">
+    <defs>
+        <!-- brand gradient: primary -> accent -->
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#0f814e"/>
+            <stop offset="1" stop-color="#d91c73"/>
+        </linearGradient>
+    </defs>
+
+    <!-- circular badge -->
+    <circle cx="256" cy="256" r="256" fill="url(#g)"/>
+
+    <!-- letters: monoline, rounded, optically centered -->
+    <g fill="none" stroke="#fff" stroke-width="52" stroke-linecap="round" stroke-linejoin="round"
+       shape-rendering="geometricPrecision" transform="translate(-10,0)">
+        <!-- J (hooks LEFT; tidy radius on the hook) -->
+        <path d="M210 128 V300 Q210 372 150 372 H128" />
+        <!-- W (symmetric, slightly narrower apex for clarity at 16px) -->
+        <path d="M300 128 L324 372 L360 236 L396 372 L420 128" />
+    </g>
+</svg>
