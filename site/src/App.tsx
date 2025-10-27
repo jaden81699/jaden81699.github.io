@@ -13,6 +13,18 @@ export default function App() {
     const [scrolled, setScrolled] = React.useState(false);
 
     React.useEffect(() => {
+        const base = "Jaden Walker";
+        const map: Record<string, string> = {
+            "/":        "Jaden Walker — Software Engineer",
+            "/projects":"Projects — " + base,
+            "/about":   "About — " + base,
+            "/contact": "Contact — " + base,
+            "/play":    "Playground — " + base,
+        };
+        document.title = map[location.pathname] ?? base;
+    }, [location.pathname]);
+
+    React.useEffect(() => {
         const onScroll = () => {
             const y = window.scrollY || document.documentElement.scrollTop;
             setShowIntro(isHome && y < 140);
